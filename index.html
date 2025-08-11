@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Fowzia Fariha Shaj - CV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        /* Compact A4-like CV (profile image uses shaj.jpg) */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #e0e5ec; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 14px; color: var(--text); }
+
+        .a4-container {
+            width: 210mm;
+            min-height: auto;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --primary-light: #34495e;
+            --secondary: #2980b9;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --text: #111111;
+            --muted: #333333;
+            --light-gray: #f8fafc;
+            --border-radius: 4px;
+        }
+
+        /* Header Styles - tightened */
+        .header {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 20px 26px;
+        }
+        .header-content { flex: 1; padding-right: 18px; }
+        /* profile-image is now an <img> element */
+        .profile-image {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.28);
+            object-fit: cover;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .name { font-size: 22px; font-weight: 700; margin-bottom: 4px; color: white; }
+        .title { font-size: 15px; font-weight: 400; margin-bottom: 10px; color: #ecf0f1; opacity: .95; }
+
+        .contact-info { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 10px; font-size: 13px; }
+        .contact-item { display: flex; align-items: center; gap: 8px; color: #f0f6fb; }
+        .contact-item i { width: 18px; font-size: 14px; color: var(--accent); }
+
+        /* Section Styles - compacted */
+        .section { padding: 14px 20px; border-bottom: 1px solid #f1f5f8; }
+        .section:last-child { border-bottom: none; }
+        .section-title {
+            font-size: 16px; color: var(--primary); margin-bottom: 12px; padding-bottom: 6px;
+            border-bottom: 2px solid var(--secondary); display:flex; align-items:center;
+        }
+        .section-title i { margin-right: 8px; background: var(--primary); color: white; width: 28px; height: 28px; border-radius: 50%; display:flex; align-items:center; justify-content:center; font-size:13px; }
+
+        /* Education */
+        .education-item { display:flex; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px dashed #e9eef4; }
+        .education-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .education-year { min-width: 90px; font-weight: 600; color: var(--secondary); font-size: 13px; }
+        .education-details { flex: 1; }
+        .institution { font-weight: 700; font-size: 14px; margin-bottom: 4px; color: var(--text); }
+        .degree { color: var(--primary-light); margin-bottom: 4px; font-weight: 600; display:flex; align-items:center; font-size: 13px; }
+        .degree i { margin-right: 6px; color: var(--accent); font-size: 12px; }
+
+        /* Skills */
+        .skills-container { display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+        .skill-category { background: white; padding: 12px; border-radius: var(--border-radius); box-shadow: 0 1px 3px rgba(0,0,0,0.04); border-top: 2px solid var(--accent); }
+        .skill-category h3 { color: var(--text); margin-bottom: 8px; font-size: 14px; display:flex; align-items:center; }
+        .skill-category h3 i { margin-right: 6px; color: var(--accent); font-size: 13px; }
+        .skills-list li { margin-bottom: 6px; display:flex; align-items:center; font-size:13px; color: var(--text); }
+        .skills-list li::before { content: "▹"; color: var(--accent); font-weight: 700; width: 1em; margin-right: 8px; font-size: 13px; }
+
+        /* Projects */
+        .project { margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--light-gray); }
+        .project:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .project-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; display:flex; align-items:center; }
+        .project-title i { margin-right: 8px; color: var(--accent); font-size: 13px; }
+        .project-tech { background: var(--light); color: var(--primary-light); padding: 4px 8px; border-radius: 24px; display: inline-block; margin: 5px 0; font-size: 12px; font-weight: 600; border: 1px solid #d6eaf8; }
+        .project-description { margin-top: 6px; padding-left: 4px; font-size: 13px; color: var(--text); }
+
+        /* ACHIEVEMENTS & CO-CURRICULAR */
+        .activity { margin-bottom: 10px; padding-left: 16px; position: relative; border-left: 2px solid var(--accent); }
+        .activity:before { content: ''; position: absolute; left: -7px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); border: 2px solid white; box-shadow: 0 0 0 1px var(--accent); }
+        .activity-title { font-weight: 700; color: var(--text); margin-bottom: 4px; font-size: 14px; }
+        .activity p { font-size: 13px; color: var(--text); }
+
+        /* Languages */
+        .languages { display:flex; flex-wrap:wrap; gap: 10px; }
+        .language { background:white; padding: 10px; border-radius: var(--border-radius); font-weight: 500; flex:1; min-width: 150px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); border-top:2px solid var(--accent); }
+        .language-name { color: var(--text); font-weight: 700; margin-bottom: 6px; font-size: 14px; display:flex; align-items:center; }
+        .language-name i { margin-right: 6px; color: var(--accent); font-size: 13px; }
+        .language div { color: var(--text); font-size: 13px; }
+
+        /* Footer */
+        .footer { text-align:center; padding:10px; font-size:12px; color: var(--text); border-top: 1px solid #eee; background: var(--light-gray); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .a4-container { width: 100%; }
+            .header { flex-direction: column; padding: 18px; }
+            .profile-image { margin: 0 auto 12px; order: -1; }
+            .header-content { padding-right: 0; text-align: center; }
+            .contact-info { grid-template-columns: 1fr; justify-items: center; }
+            .education-item { flex-direction: column; }
+            .education-year { margin-bottom: 8px; }
+            .section { padding: 12px 16px; }
+            .languages { flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="a4-container">
+        <!-- Header with Profile -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="name">Fowzia Fariha Shaj</h1>
+                <p class="title">3rd Year Software Engineering Student</p>
+
+                <div class="contact-info">
+                    <div class="contact-item"><i class="fas fa-envelope"></i><span>farihashaj75@gmail.com</span></div>
+                    <div class="contact-item"><i class="fas fa-phone"></i><span>+880 1648457009</span></div>
+                    <div class="contact-item"><i class="fas fa-map-marker-alt"></i><span>Sylhet, Bangladesh</span></div>
+                    <div class="contact-item"><i class="fas fa-university"></i><span>Shahjalal University of Science & Technology</span></div>
+                </div>
+            </div>
+
+            <!-- actual image file: place shaj.jpg in same folder -->
+            <img src="shaj.jpg" alt="Fowzia Shaj" class="profile-image" />
+        </header>
+
+        <!-- Education Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i>Education</h2>
+
+            <div class="education-item">
+                <div class="education-year">2021 - Present</div>
+                <div class="education-details">
+                    <h3 class="institution">Shahjalal University of Science & Technology</h3>
+                    <p class="degree"><i class="fas fa-book"></i>B.Sc. in Software Engineering</p>
+                    <p>Cumulative CGPA: 3.87</p>
+                </div>
+            </div>
+
+            <div class="education-item">
+                <div class="education-year">2018 - 2020</div>
+                <div class="education-details">
+                    <h3 class="institution">Rajuk Uttara Model College</h3>
+                    <p class="degree"><i class="fas fa-book"></i>Higher Secondary Certificate (HSC)</p>
+                    <p>Golden GPA 5.00</p>
+                    <div class="achievement" style="display:inline-block;margin-top:6px;padding:4px 10px;border-radius:4px;background:#f6fbff;color:var(--text);border-left:3px solid var(--accent);font-weight:600;font-size:12px;">
+                        Received Scholarship
+                    </div>
+                </div>
+            </div>
+
+            <div class="education-item">
+                <div class="education-year">2016 - 2018</div>
+                <div class="education-details">
+                    <h3 class="institution">Holy Child School and College</h3>
+                    <p class="degree"><i class="fas fa-book"></i>Secondary School Certificate (SSC)</p>
+                    <p>Golden GPA 5.00</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-laptop-code"></i>Technical Skills</h2>
+
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i>Programming Languages</h3>
+                    <ul class="skills-list">
+                        <li>C++</li>
+                        <li>Python</li>
+                        <li>Java</li>
+                        <li>JavaScript</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-cogs"></i>Problem Solving</h3>
+                    <ul class="skills-list">
+                        <li>Data Structures</li>
+                        <li>Algorithms</li>
+                        <li>Complex Problem Solving</li>
+                        <li>Optimization Techniques</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-layer-group"></i>Frameworks & Libraries</h3>
+                    <ul class="skills-list">
+                        <li>SDL2 (Game Development)</li>
+                        <li>libGDX (Game Framework)</li>
+                        <li>Flutter (Mobile Development)</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-globe"></i>Web Technologies</h3>
+                    <ul class="skills-list">
+                        <li>HTML5 & CSS3</li>
+                        <li>JavaScript</li>
+                        <li>Responsive Design</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i>Projects</h2>
+
+            <div class="project">
+                <h3 class="project-title"><i class="fas fa-gamepad"></i>Snake Game</h3>
+                <div class="project-tech">C++ • SDL2</div>
+                <p class="project-description">Classic Snake game implementation using C++ and SDL2 library with enhanced graphics, multiple levels, and score tracking features.</p>
+            </div>
+
+            <div class="project">
+                <h3 class="project-title"><i class="fas fa-gamepad"></i>Jungle Rush</h3>
+                <div class="project-tech">Java • libGDX</div>
+                <p class="project-description">2D platformer game developed with Java and libGDX framework featuring character abilities, enemy AI, and multiple challenging levels.</p>
+            </div>
+
+            <div class="project">
+                <h3 class="project-title"><i class="fas fa-mobile-alt"></i>Yumzy - Food Delivery App</h3>
+                <div class="project-tech">Flutter • Firebase</div>
+                <p class="project-description">Full-featured food delivery application with real-time ordering, payment integration, restaurant management, and user reviews.</p>
+            </div>
+        </section>
+
+        <!-- Achievements & Co-curricular Activities -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-trophy"></i>Achievements &amp; Co-curricular Activities</h2>
+
+            <div class="activity">
+                <h3 class="activity-title">Hult Prize at SUST</h3>
+                <p>1st Runner Up (2023) - Developed a sustainable business solution.</p>
+            </div>
+
+            <div class="activity">
+                <h3 class="activity-title">Math Olympiad</h3>
+                <p>Secured top 10 position twice in Sylhet region (2023, 2024) - Demonstrated excellence in mathematical problem-solving.</p>
+            </div>
+
+            <div class="activity">
+                <h3 class="activity-title">Technical Workshops</h3>
+                <p>Participated in multiple workshops on game development and mobile app creation at university tech festivals.</p>
+            </div>
+        </section>
+
+        <!-- Languages Section -->
+        <section class="section">
+            <h2 class="section-title"><i class="fas fa-language"></i>Languages</h2>
+
+            <div class="languages">
+                <div class="language">
+                    <div class="language-name"><i class="fas fa-comments"></i>English</div>
+                    <div>Professional proficiency in speaking, presentation, and technical writing</div>
+                </div>
+
+                <div class="language">
+                    <div class="language-name"><i class="fas fa-comments"></i>Bangla</div>
+                    <div>Native fluency in reading, writing, and speaking</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2023 Fowzia Fariha Shaj | Designed with professional standards for tech industry</p>
+        </footer>
+    </div>
+</body>
+</html>
